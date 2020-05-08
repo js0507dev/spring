@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>로그인</title>
-  <link rel="stylesheet" type="text/css" href="../../static/lib/mascotAnimationLoginForm/login.css">
+  <link rel="stylesheet" type="text/css" href="/lib/mascotAnimationLoginForm/login.css">
 </head>
 <body>
-  <form>
+  <form method="post">
     <div class="svgContainer">
       <div>
         <svg class="mySVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
@@ -100,20 +100,20 @@
 
     <div class="inputGroup inputGroup1">
       <label for="email">Email</label>
-      <input type="text" id="email" class="email" maxlength="256"/>
+      <input type="text" id="email" name="email" class="email" maxlength="256"/>
       <p class="helper helper1">email@domain.com</p>
       <span class="indicator"></span>
     </div>
     <div class="inputGroup inputGroup2">
       <label for="password">Password</label>
-      <input type="password" id="password" class="password" />
+      <input type="password" id="password" name="password" class="password" />
     </div>
     <div class="inputGroup inputGroup3">
       <button id="login">Log in</button>
     </div>
   </form>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-<script src="../../static/lib/mascotAnimationLoginForm/login.js"></script>
+<script src="/lib/mascotAnimationLoginForm/TweenMax.min.js"></script>
+<script src="/lib/mascotAnimationLoginForm/login.js"></script>
 </body>
 </html>
