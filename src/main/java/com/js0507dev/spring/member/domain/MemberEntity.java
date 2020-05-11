@@ -1,27 +1,37 @@
 package com.js0507dev.spring.member.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "member")
+@Table(name = "Member")
+@EqualsAndHashCode(of = "email")
 public class MemberEntity {
   @Id
-  @Column(length = 60, nullable = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(length = 60, unique = true, nullable = false)
   private String email;
 
   @Column(length = 40, nullable = false)
   private String password;
 
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinColumn(name = "memberId")
+  private List<MemberRole> roles;
+
   @Builder
-  public MemberEntity(Long id, String email, String password) {
+  public MemberEntity(Long id, String email, String password, List<MemberRole> roles) {
+    this.id = id;
     this.email = email;
     this.password = password;
+    this.roles = roles;
   }
 }

@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
-  private AuthProvider authProvider;
+  private MemberService memberService;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -41,9 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     http.formLogin()
             .loginPage("/login")
+            .loginProcessingUrl("/login")
             .defaultSuccessUrl("/")
-            .usernameParameter("email")
-            .passwordParameter("password")
+            .failureUrl("/login?msg=fail")
             .permitAll();
 
     http.logout()
@@ -54,12 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.exceptionHandling().accessDeniedPage("/error/403");
   }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.authenticationProvider(authProvider);
-    auth.inMemoryAuthentication()
-            .withUser("test@naver.com")
-            .password(passwordEncoder().encode("test"))
-            .roles("MEMBER");
+  @Autowired
+  protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
   }
 }
