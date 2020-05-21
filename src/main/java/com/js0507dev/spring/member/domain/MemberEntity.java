@@ -3,14 +3,12 @@ package com.js0507dev.spring.member.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "Member")
+@Table(name = "member")
 @EqualsAndHashCode(of = "email")
 public class MemberEntity {
   @Id
@@ -26,6 +24,13 @@ public class MemberEntity {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinColumn(name = "memberId")
   private List<MemberRole> roles;
+
+  @Builder
+  public MemberEntity(Long id, String email, String password) {
+    this.id = id;
+    this.email = email;
+    this.password = password;
+  }
 
   @Builder
   public MemberEntity(Long id, String email, String password, List<MemberRole> roles) {

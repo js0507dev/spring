@@ -14,17 +14,7 @@ public class MainController {
   }
 
   @GetMapping("/login")
-  public String login(Model model, String error, String logout) {
-    if(error != null) {
-      log.info("test " + error);
-      model.addAttribute("errorMsg", "로그인 정보가 올바르지 않습니다.");
-    }
-    if(logout != null) {
-      log.info("test2 " + logout);
-      model.addAttribute("message", "로그아웃 되었습니다.");
-    }
-    log.info("test3 ");
-
+  public String login() {
     return "common/login";
   }
 }
